@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="temp.css">
+    <title>Temperature Calculator</title>
+</head>
+<body>
+    <div id="calculator">
+        <h2 id="h2">TEMPERATURE CALCULATOR</h2>
+        
+        <label for="temperature">Temperature :</label>
+        <br>
+        <input type="number" id="temperature" placeholder="Enter Temperature" required>
+        <br>
+        <p>From Temperature</p>
+        
+        <input type="radio" id="celsius" name="unit" required>
+        <label for="celsius">Celsius</label>
+        <br>
+        
+        <input type="radio" id="fahrenheit" name="unit">
+        <label for="fahrenheit">Fahrenheit</label>
+        <br>
+        
+        <input type="radio" id="kelvin" name="unit">
+        <label for="kelvin">Kelvin</label>
+        <br>
+
+        <p>To Temperature</p>
+        
+        <input type="radio" id="celsius1" name="unit1" required>
+        <label for="celsius1">Celsius</label>
+        <br>
+        
+        <input type="radio" id="fahrenheit1" name="unit1">
+        <label for="fahrenheit1">Fahrenheit</label>
+        <br>
+        
+        <input type="radio" id="kelvin1" name="unit1">
+        <label for="kelvin1">Kelvin</label>
+        <br>
+        <br>
+        <button onclick="convertTemperature()">Convert</button>
+        <br><br>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            const temperatureInput = parseFloat(document.getElementById("temperature").value);
+
+            if (isNaN(temperatureInput)) {
+                alert("Please enter a valid temperature.");
+                return;
+            }
+
+            const fromCelsius = document.getElementById("celsius").checked;
+            const fromFahrenheit = document.getElementById("fahrenheit").checked;
+            const fromKelvin = document.getElementById("kelvin").checked;
+            const toCelsius = document.getElementById("celsius1").checked;
+            const toFahrenheit = document.getElementById("fahrenheit1").checked;
+            const toKelvin = document.getElementById("kelvin1").checked;
+            const head = document.getElementById("h2");
+
+            let convertedTemperature;
+
+            if (fromCelsius && toFahrenheit) {
+                convertedTemperature = (temperatureInput * 9/5) + 32;
+            } else if (fromCelsius && toKelvin) {
+                convertedTemperature = temperatureInput + 273.15;
+            } else if (fromFahrenheit && toCelsius) {
+                convertedTemperature = (temperatureInput - 32) * 5/9;
+            } else if (fromFahrenheit && toKelvin) {
+                convertedTemperature = (temperatureInput - 32) * 5/9 + 273.15;
+            } else if (fromKelvin && toCelsius) {
+                convertedTemperature = temperatureInput - 273.15;
+            } else if (fromKelvin && toFahrenheit) {
+                convertedTemperature = (temperatureInput - 273.15) * 9/5 + 32;
+            } else {
+                alert("Please select the conversion units.");
+                return;
+            }
+            head.textContent = `${temperatureInput} Degrees converted is ${convertedTemperature.toFixed(2)} Degrees.`;
+            
+        }
+    </script>
+</body>
+</html>
